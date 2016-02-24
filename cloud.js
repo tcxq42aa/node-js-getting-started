@@ -1,10 +1,24 @@
 var AV = require('leanengine');
 
+var Post = AV.Object.extend('Post');
+
 /**
  * 一个简单的云代码方法
  */
 AV.Cloud.define('hello', function (request, response) {
     response.success('Hello world 2!');
+});
+
+AV.Cloud.define('post', function (request, response) {
+    response.success('Hello world 2!');
+    // 创建该类的一个实例
+    var post = new Post();
+    post.set('name', request.params.name);
+    post.save().then(function(post){
+        console.log('New object created with objectId: ' + post.id);
+    },function(err){
+        console.log('Failed to create new object, with error message: ' + err.message);
+    });
 });
 
 AV.Cloud.define('_receiversOffline', function (request, response) {
