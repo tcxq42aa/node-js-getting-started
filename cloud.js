@@ -1,6 +1,6 @@
 var AV = require('leanengine');
 
-var Post = AV.Object.extend('Post');
+var OfflineMessage = AV.Object.extend('OfflineMessage');
 
 /**
  * 一个简单的云代码方法
@@ -10,14 +10,13 @@ AV.Cloud.define('hello', function (request, response) {
 });
 
 AV.Cloud.define('post', function (request, response) {
-    response.success('Hello world 2!');
     // 创建该类的一个实例
     var post = new Post();
     post.set('name', request.params.name);
     post.save().then(function(post){
-        console.log('New object created with objectId: ' + post.id);
+        response.success('New object created with objectId: ' + post.id);
     },function(err){
-        console.log('Failed to create new object, with error message: ' + err.message);
+        response.success('Failed to create new object, with error message: ' + err.message);
     });
 });
 
@@ -30,6 +29,13 @@ AV.Cloud.define('_receiversOffline', function (request, response) {
         var query = new AV.Query('_Conversation');
         query.equalTo('objectId', params.convId);
         query.find().then(function (results) {
+            var offlineMessage = new OfflineMessage();
+            offlineMessage.set('content', JSON.stringify(params));
+            offlineMessage.save().then(function(message){
+                console.log('New object created with objectId: ' + message.id);
+            }, function(err){
+                console.log('Failed to create new object, with error message: ' + err.message);
+            });
             var json = {
                 // 自增未读消息的数目，不想自增就设为数字
                 badge: "Increment",
