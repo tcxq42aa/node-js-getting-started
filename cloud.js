@@ -7,7 +7,7 @@ AV.Cloud.define('hello', function (request, response) {
     response.success('Hello world 2!');
 });
 
-AV.Cloud.define('FUNCTION_receiversOffline', function (request, response) {
+AV.Cloud.define('_receiversOffline', function (request, response) {
     var params = request.params;
 
     if (params.convId) {
