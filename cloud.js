@@ -29,13 +29,13 @@ AV.Cloud.define('_receiversOffline', function (request, response) {
         var query = new AV.Query('_Conversation');
         query.equalTo('objectId', params.convId);
         query.find().then(function (results) {
-            var offlineMessage = new OfflineMessage();
-            offlineMessage.set('content', params);
-            offlineMessage.save().then(function(message){
-                console.log('New object created with objectId: ' + message.id);
-            }, function(err){
-                console.log('Failed to create new object, with error message: ' + err.message);
-            });
+            //var offlineMessage = new OfflineMessage();
+            //offlineMessage.set('content', params);
+            //offlineMessage.save().then(function(message){
+            //    console.log('New object created with objectId: ' + message.id);
+            //}, function(err){
+            //    console.log('Failed to create new object, with error message: ' + err.message);
+            //});
             var json = {
                 // 自增未读消息的数目，不想自增就设为数字
                 badge: "Increment",
