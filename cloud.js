@@ -30,7 +30,7 @@ AV.Cloud.define('_receiversOffline', function (request, response) {
         query.equalTo('objectId', params.convId);
         query.find().then(function (results) {
             var offlineMessage = new OfflineMessage();
-            offlineMessage.set('content', JSON.stringify(params));
+            offlineMessage.set('content', params);
             offlineMessage.save().then(function(message){
                 console.log('New object created with objectId: ' + message.id);
             }, function(err){
